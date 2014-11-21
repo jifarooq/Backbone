@@ -1,0 +1,25 @@
+<% if (post.id) { %>
+	<% var header = 'Edit' %>
+	<% var title = post.escape('title') %>
+	<% var body = post.escape('body') %>
+<% } else { %>
+	<% var header = 'New', title = "", body = "" %>
+<% }; %>
+
+<h2><%= header %> Post</h2>
+
+<form id="post-form">
+  
+  <label>Title
+    <input type="text" name="post[title]" value="<%= title %>">
+  </label>
+  
+  <label>Body
+    <textarea name="post[body]"><%= body %></textarea>
+  </label>
+
+  <input type="submit" name="Submit">
+  
+</form>
+
+<a href="#/">Back</a>

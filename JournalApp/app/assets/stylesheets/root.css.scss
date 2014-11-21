@@ -1,0 +1,25 @@
+// Place all the styles related to the Root controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+	font-family: verdana;
+	color: midnightBlue;
+}
+
+h1 {
+	color: navy;
+}
+
+.sidebar {
+  float: left;
+  width: 24%;
+  border-right: 2px solid black;
+  background-color: salmon
+}
+
+.content {
+  float: left;
+  width: 74%;
+  background-color: chartreuse 
+}

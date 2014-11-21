@@ -1,0 +1,14 @@
+<h2>All the posts!</h2>
+
+<ul>
+  <% posts.forEach(function (post) { %>
+    <li>
+      <a href="#/posts/<%= post.id %>">
+        <%= post.escape('title') %>
+      </a>
+      <button data-id="<%= post.id %>" class="delete-button">Delete</button>
+    </li>
+  <% }); %>
+</ul>
+
+<a href="/#/posts/new">New Post</a>
