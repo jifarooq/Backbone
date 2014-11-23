@@ -8,5 +8,6 @@ window.TrelloClone = {
     // pass in a rootEl to router, not as an object
   	new TrelloClone.Routers.AppRouter($("#main"));
   	Backbone.history.start();
+    console.log("meh"); //delete me
   }
 };
