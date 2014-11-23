@@ -1,0 +1,12 @@
+<h1>Your Boards</h1>
+
+<ul class="board-gutter">
+	<% boards.each(function(board) { %>
+		<li id="<%= board.id %>">
+			<% var showLink = "#/boards/" + board.id %>
+			<a href="<%= showLink %>"><%= board.escape('title') %></a>
+		</li>
+	<% }); %>
+
+	<li><a href="" id="new-board">Create new board...</a></li>
+</ul>
