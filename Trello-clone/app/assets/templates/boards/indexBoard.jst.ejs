@@ -5,6 +5,9 @@
 		<li id="<%= board.id %>">
 			<% var showLink = "#/boards/" + board.id %>
 			<a href="<%= showLink %>"><%= board.escape('title') %></a>
+			<button id="delete" data-id="<%= board.id %>">
+				Delete
+			</button>
 		</li>
 	<% }); %>
 

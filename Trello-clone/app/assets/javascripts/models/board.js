@@ -9,4 +9,14 @@ TrelloClone.Models.Board = Backbone.Model.extend({
 		return this._lists;
 	},
 
+	// this is how you extract lists out of board when you fetch board!
+  parse: function (response) {
+    if (response.lists) {
+    	// key piece here!
+      this.lists().set(response.lists, { parse: true });
+      delete response.lists;
+    }
+    
+    return response;
+  }
 });

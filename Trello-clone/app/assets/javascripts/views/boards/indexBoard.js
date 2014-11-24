@@ -2,12 +2,30 @@ TrelloClone.Views.BoardsIndex = Backbone.View.extend({
   template: JST['boards/indexBoard'],
 
   events: {
-  	"click #new-board": "attachNewBoardView"
+  	"click #new-board": "attachNewBoardView",
+    "click #delete": "destroy"
   },
 
   initialize: function() {
   	this.addNewBoardView();
-  	this.listenTo(this.collection, "sync", this.render);
+  	this.listenTo(this.collection, "sync remove", this.render);
+  },
+
+  addNewBoardView: function() {
+     var newBoard = new TrelloClone.Models.Board();
+     this.newBoardView = new TrelloClone.Views.BoardNew({ model: newBoard });
+  },
+
+  attachNewBoardView: function(event) {
+    event.preventDefault();   //forgot to do this at first!
+    this.$el.append(this.newBoardView.render().$el);
+    // this.newBoardView.delegateEvents();
+  },
+
+  destroy: function(event) {
+    var id = $(event.target).data('id');
+    var board = this.collection.get(id);
+    board.destroy();
   },
 
   render: function() {
@@ -16,18 +34,4 @@ TrelloClone.Views.BoardsIndex = Backbone.View.extend({
   	return this;
   },
 
-  addNewBoardView: function() {
-  	 var newBoard = new TrelloClone.Models.Board();
-  	 this.newBoardView = new TrelloClone.Views.BoardNew({ model: newBoard });
-  },
-
-  attachNewBoardView: function(event) {
-    event.preventDefault();   //forgot to do this at first!
-  	this.$el.append(this.newBoardView.render().$el);
-  	this.newBoardView.delegateEvents();
-  },
-
 });
-
-// eventually need to be able to click link and have form render
-// need click event

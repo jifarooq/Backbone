@@ -1,0 +1,3 @@
+Why lists weren't rendering correctly:
+1) Didn't parse the response for just lists in JSON object
+2) Jbuilder code was messed up (too nested, gave recursive results)
