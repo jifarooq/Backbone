@@ -8,48 +8,51 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
   initialize: function() {
     this.collection = this.model.lists();
     // this.listenTo(this.model, "sync", this.render);
-    // need this key piece!
     this.listenTo(this.collection, "add", this.render)
   },
 
   render: function() {
-  	var boardContent = this.template({ board: this.model });
-  	this.$el.html(boardContent);
+  	var content = this.template({ board: this.model });
+  	this.$el.html(content);
     this.addListViews();
-    this.attachListViews();
+    this.attachSubviews();
+    debugger
   	return this;
   },
 
-  // All list views
+  // All list views --> using composite view
   addListViews: function() {
-    this.listViews = [];
-
     this.collection.each(function(list) {
       var listView = new TrelloClone.Views.ListShow({ model: list });
-      this.listViews.push(listView);
+      this.addSubview(this.$el, listView.render());
     }.bind(this));
   },
 
   attachListViews: function() {
-    this.listViews.forEach(function(listView) {
-      this.$el.append(listView.render().$el);
-    }.bind(this));
+
   },
+
+  // attachSubviews: function() {
+  //   this.subviews.forEach(function(subview) {
+  //     this.$el.append(subview.render().$el);
+  //   }.bind(this));
+  // },
 
   // New list forms
-  addNewListForm: function() {
-    var newList = new TrelloClone.Models.List();
-    this.newListView = new TrelloClone.Views.ListNew({ 
-      collection: this.collection,
-      boardId: this.model.id 
-    });
-  },
+  // addNewListForm: function() {
+  //   var newList = new TrelloClone.Models.List();
+  //   debugger
+  //   this.newListView = new TrelloClone.Views.ListNew({ 
+  //     model: newList,
+  //     boardId: this.model.id
+  //   });
+  // },
 
-  attachNewListForm: function(event) {
-    event.preventDefault();
-    this.addNewListForm();
-    this.$el.append(this.newListView.render().$el);
-  },
+  // attachNewListForm: function(event) {
+  //   event.preventDefault();
+  //   this.addNewListForm();
+  //   this.$el.append(this.newListView.render().$el);
+  // },
 
 });
 

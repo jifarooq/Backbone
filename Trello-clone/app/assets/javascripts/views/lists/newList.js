@@ -5,26 +5,22 @@ TrelloClone.Views.ListNew = Backbone.View.extend({
   	"submit form": "saveList"
   },
 
-  initialize: function () {
-    this.listenTo(this.model, "sync", this.render);
+  initialize: function (options) {
+    this.boardId = options.boardId;
+    this.listenTo(this.collection, "sync", this.render);
   },
 
+  // here need to use collection.create
+  // not model.save!
   saveList: function(event) {
-    // put hidden tag in form for board id and data-board-id tag
-    // use data-board-id tag to get board and add list to collection
-
-    // left off here
-
   	event.preventDefault();
-  	var attributes = $(event.target).serializeJSON();
-    debugger
-  	this.model.save(attributes, {
-  		success: function() {
-    		// debugger
-        // _boards.get()
-        // Backbone.history.navigate(, { trigger: true })
-  		}.bind(this)
-    })
+    var title = this.$('input').val();
+
+    this.collection.create({
+      title: title,
+      boardId: this.boardId
+    });
+
   },
 
   render: function() {
