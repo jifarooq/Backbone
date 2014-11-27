@@ -4,6 +4,7 @@ TrelloClone.Views.BoardsIndex = Backbone.View.extend({
   events: {
   	"click #new-board": "attachNewBoardView",
     "click #delete": "destroy"
+    // "click "
   },
 
   initialize: function() {

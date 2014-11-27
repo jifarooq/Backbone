@@ -13,7 +13,7 @@ JournalApp.Views.PostForm = Backbone.View.extend({
 
     this.model.save(params, {
       success: function() {
-        posts.add(this.model);
+        posts.add(this.model); 
         Backbone.history.navigate("", { trigger: true } )
       }.bind(this),
       error: function() {

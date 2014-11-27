@@ -5,56 +5,69 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
     "click #new-list": "attachNewListForm",
   },
 
+  // header disappears after rendering
+
   initialize: function() {
     this.collection = this.model.lists();
-    // this.listenTo(this.model, "sync", this.render);
-    // need this key piece!
-    this.listenTo(this.collection, "add", this.render)
+    // when already fetched, need to loop through and add them
+    // if (this.collection) { this.addListViews(); };
+
+    // this.listenTo(this.collection, "sync", this.render);
+    this.listenTo(this.collection, "add", this.addList)
   },
 
   render: function() {
-  	var boardContent = this.template({ board: this.model });
-  	this.$el.html(boardContent);
-    this.addListViews();
-    this.attachListViews();
+  	var content = this.template({ board: this.model });
+  	this.$el.html(content);
+    this.attachLists();
+    this.addListForm();
   	return this;
   },
 
-  // All list views
-  addListViews: function() {
-    this.listViews = [];
-
-    this.collection.each(function(list) {
-      var listView = new TrelloClone.Views.ListShow({ model: list });
-      this.listViews.push(listView);
-    }.bind(this));
-  },
-
-  attachListViews: function() {
-    this.listViews.forEach(function(listView) {
-      this.$el.append(listView.render().$el);
-    }.bind(this));
-  },
-
-  // New list forms
-  addNewListForm: function() {
-    var newList = new TrelloClone.Models.List();
-    this.newListView = new TrelloClone.Views.ListNew({ 
-      collection: this.collection,
-      boardId: this.model.id 
+  addList: function() {
+    var listView = new TrelloClone.Views.ListShow({ 
+      model: this.model
     });
+    this.addSubview('.list-gutter', listView);
   },
 
-  attachNewListForm: function(event) {
-    event.preventDefault();
-    this.addNewListForm();
-    this.$el.append(this.newListView.render().$el);
+  // All list views
+  attachLists: function() {
+    this.collection.each(this.addList.bind(this));
   },
+
+  addNewListLink: function() {
+    // left off here
+    var newListLink = new TrelloClone.Views.ListNewLink();
+    this.addSubview('.list-gutter', newListLink);
+  },
+
+  addListForm: function () {
+    var view = new TrelloClone.Views.ListNew({
+      collection: this.collection,
+      boardId: this.model.id
+    });
+    this.addSubview('#list-form', view);
+  },
+
+  // link to new list as subvie
+  // New list forms
+  // addNewListForm: function() {
+  //   var newList = new TrelloClone.Models.List();
+  //   this.newListView = new TrelloClone.Views.ListNew({ 
+  //     collection: this.collection,
+  //     boardId: this.model.id
+  //   });
+  // },
+
+  // attachNewListForm: function(event) {
+  //   event.preventDefault();
+  //   this.addNewListForm();
+  //   this.$el.append(this.newListView.render().$el);
+  // },
 
 });
 
 // subViews pattern:
 // 1) addView fn. if many, use array and loop, pushing each view to arr
 // 2) attachView fn.  Loop through array built in 1, appending to $el
-
-//every view needs a template, initialize, and render

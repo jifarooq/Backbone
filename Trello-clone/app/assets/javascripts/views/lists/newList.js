@@ -18,7 +18,7 @@ TrelloClone.Views.ListNew = Backbone.View.extend({
 
     this.collection.create({
       title: title,
-      boardId: this.boardId
+      board_id: this.boardId
     });
 
   },

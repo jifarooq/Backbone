@@ -8,24 +8,26 @@ NewsReader.Views.FeedsIndex = Backbone.View.extend({
       }.bind(this)
     );
   },
-  
+
+  //forms
   addFormView: function () {
     var newFeed = new NewsReader.Models.Feed();
     this._formView = new NewsReader.Views.FormView({ model: newFeed });
   },
+
+  attachFormView: function () {
+    this.$el.append(this._formView.render().$el);
+    // must re-delegate events since emptying $el in line 38
+    this._formView.delegateEvents();
+  },
   
+  //subviews
   addSubviews: function () {
     this.entryViews = [];
     this.collection.each(function (entry) {
       var entryView = new NewsReader.Views.Entry({ model: entry });
       this.entryViews.push(entryView.render());
     }.bind(this));
-  },
-  
-  attachFormView: function () {
-    this.$el.append(this._formView.render().$el);
-    // must re-delegate events since emptying $el in line 38
-    this._formView.delegateEvents();
   },
   
   attachSubviews: function () {
