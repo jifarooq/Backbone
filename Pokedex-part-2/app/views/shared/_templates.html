@@ -1,0 +1,56 @@
+<script type="text/template" id="pokemon-list-item-template">
+  <div class="list-item">
+    <li class="poke-list-item" data-id="<%%= pokemon.id %>">
+      <%% for (var i = 0; i < shortInfo.length; i++) { %>
+        <%%= shortInfo[i] + ': ' + pokemon.get(shortInfo[i]) + '<br>' %>
+      <%% } %>
+    </li>
+  </div>
+</script>
+
+<script type="text/template" id="pokemon-detail-template">
+  <div class="detail">
+    <img src='<%%= pokemon.escape('image_url') %>'>
+      <%% for( var i = 0; i < attrs.length; i++) { %>
+      <span style='font-weight:bold'><%%= attrs[i] + ": " + pokemon.get(attrs[i]) %></span> 
+      <%% } %>
+  </div>
+  <ul class="toys"></ul>
+</script>
+
+<!-- toy list item -->
+<script type="text/template" id="toy-list-item-template">
+    <li 
+      class="toy-list-item" 
+      data-id="<%%= toy.id %>" 
+      data-pokemon-id="<%%= toy.get('pokemon_id')%>">
+
+      <%% shortInfo.forEach(function(attribute){ %>
+        <span style="font-weight:bold;"><%%= attribute + ": " + toy.get(attribute)%></span>
+      <%% }); %>
+    </li>
+</script>
+
+<!-- toy detail -->
+<script type="text/template" id="toy-detail-template">
+  <div class="detail">
+    <%%= '<img src="' + toy.get('image_url') + '"><br>'%>
+    <%% for (var i = 0; i < shortInfo.length; i++) { %>
+      <%%= '<span style="font-weight:bold;">' + shortInfo[i] + ': ' + 
+        toy.get(shortInfo[i]) + '<br>' %>
+    <%% }; %>
+    
+    <select data-pokemon-id="<%% toy.get('pokemon_id')%>"
+      data-toy-id="<%% toy.id %>">
+
+      <%% pokes.forEach(function(pokemon){ %>
+        <option
+          value="<%%= pokemon.id %>"
+          <%%= pokemon.id === toy.get("pokemon_id") ? "selected" : "" %>>
+          <%%= pokemon.get("name") %>
+        </option>
+        <%% }) %>
+    </select>
+  </div>
+</script>
+

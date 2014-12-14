@@ -1,6 +1,6 @@
-Backbone apps for the week include:
+#Backbone apps
 
-1) Pokedex
-2) Journal App
-3) News Reader
-4) Trello Clone
+- Pokedex
+- Journal App
+- News Reader: get those RSS feeds
+- Trello Clone
