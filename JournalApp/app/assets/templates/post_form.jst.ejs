@@ -1,9 +1,9 @@
 <% if (post.id) { %>
-	<% var header = 'Edit' %>
-	<% var title = post.escape('title') %>
-	<% var body = post.escape('body') %>
+  <% var header = 'Edit' %>
+  <% var title = post.escape('title') %>
+  <% var body = post.escape('body') %>
 <% } else { %>
-	<% var header = 'New', title = "", body = "" %>
+  <% var header = 'New', title = "", body = "" %>
 <% }; %>
 
 <h2><%= header %> Post</h2>
